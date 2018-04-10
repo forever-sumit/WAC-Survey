@@ -1,0 +1,38 @@
+<header class="main-header">
+  <div class="container">
+    <%= image_tag('WAC-Ruby-Survey-Image.jpg') %>
+  </div>
+</header>
+<div class="main-content">
+  <section class="start-here">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-7">
+          <div class="start-here-content">
+            <h1>Data Bias Assessment Tool ~Survey Edition</h1>
+            <p>This tool is designed to be used to assess the level of bias that is present in dataset. This is designed to assess the level of bias prior to analysis. If you’re  interested in assessing the bias that might be present in an analysis, go to this tool.</p>
+            <p>To get a sense of the sources and locations of potential bias in your data you’re going to need the following things:</p>
+            <ul>
+              <li>The Dataset</li>
+              <li>The tool that was used to collect the data</li>
+              <li>The codebook or metadata associated with the data</li>
+            </ul>
+            <p>Then you need to walk through the following questions</p>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="logo-btn">
+            <div class="logo">
+              <%= image_tag('logo.png') %>
+            </div>
+            <div class="start-btn">
+              <%= link_to new_survey_path, class: "btn btn-default" do %>
+                Start Here
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
