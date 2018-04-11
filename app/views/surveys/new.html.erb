@@ -27,72 +27,26 @@
           <div class="questions-block">
             <h2>Who - Questions about who the data was collected by and from</h2>
             <div class="section-block">
-              <h3>Section 1: Who asked the questions (Data collectors)</h3>
-              <div class="single-question-block">
-                <h4 class="singleQuestion">Was the person asking the questions a professionally trained enumerator?
-                </h4>
-                <select class="form-control">
-                  <option>Please Select</option>
-                  <option>Yes, professionally trained enumerator</option>
-                  <option>No, not professionally trained enumerator</option>
-                  <option>Unsure</option>
-                </select>
-              </div>
-              <div class="single-question-block">
-                <h4 class="singleQuestion">Was the person asking the questions a potential friend or neighbour?
-                </h4>
-                <select class="form-control">
-                  <option>Please Select</option>
-                  <option>Yes</option>
-                  <option>No</option>
-                  <option>Unsure</option>
-                </select>
-              </div>
-              <div class="single-question-block">
-                <h4 class="singleQuestion">What the person collecting the questions the same gender as the respondent?
-                </h4>
-                <select class="form-control">
-                  <option>Please Select</option>
-                  <option>Yes, always</option>
-                  <option>Yes, when possible</option>
-                  <option>No</option>
-                  <option>Unsure</option>
-                </select>
-              </div>
-              <div class="single-question-block">
-                <h4 class="singleQuestion">Was the person asking the questions of a higher status than the respondent, lower status than the respondent or same status?</h4>
-                <select class="form-control">
-                  <option>Please Select</option>
-                  <option>Person asking question was usually higher status</option>
-                  <option>Person asking question was usually same status</option>
-                  <option>Persona asking question was usually lower status</option>
-                  <option>Unsure</option>
-                </select>
-              </div>
-            </div>
-            <div class="section-block">
-              <h3>Section 3: Who did not answer the questions</h3>
-              <div class="single-question-block">
-                <h4 class="singleQuestion">What groups of people were accidentally not included?
-                </h4>
-                <select class="form-control">
-                  <option>Please Select</option>
-                  <option>People who were not home or available at the time of data collection were accidentally not included</option>
-                  <option>Other people were accidentally not included</option>
-                  <option>No one was excluded from the survey by accident</option>
-                  <option>Unsure</option>
-                </select>
-                <div class="form-group">
-                  <label>What questions were asked?</label>
-                  <textarea class="form-control"></textarea>
-                </div>
-              </div>
+              <% @sections.each do |section| %>
+                <h3>Section <%= section.in_order %>: <%= section.name %></h3>
+                <% questions = section.questions.order(:in_order) %>
+                <% questions.each do |question|%>
+                  <div class="single-question-block">
+                    <h4 class="singleQuestion">
+                      <%= question.question_title %>
+                    </h4>
+                    <%= collection_select(:answer, :question_id, question.answers, :id, :answer_title, {prompt: true}, {class: 'form-control'}) %>
+                  </div>
+                <% end %>
+              <% end %>
             </div>
           </div>
-          
 
           <div class="submit-btn">
-            <a type="submit" href="survey_summary.html" class="btn btn-default">Submit</a>
+            <%= link_to '', class: "btn btn-default" do %>
+              Submit
+            <% end %>
+            <%= will_paginate @sections, :page_links => false, class: "btn btn-default", id: 'next-btn'  %>
           </div>
         </div>
       </div>
