@@ -26,40 +26,48 @@
         <div class="col-md-12">
           <div class="questions-block">
             <h2>Who - Questions about who the data was collected by and from</h2>
-            <div class="section-block">
-              <% @sections.each do |section| %>
-                <h3>Section <%= section.in_order %>: <%= section.name %></h3>
-                <% questions = section.questions.order(:in_order) %>
-                <% questions.each do |question|%>
-                  <div class="single-question-block">
-                    <h4 class="singleQuestion">
-                      <%= question.question_title %>
-                    </h4>
-                    <%= collection_select(:answer, :question_id, question.answers, :id, :answer_title, {prompt: true}, {class: 'form-control'}) %>
-                  </div>
-                <% end %>
-              <% end %>
-            </div>
-          </div>
-
-          <div class="submit-btn">
-            <%= link_to '', class: "btn btn-default" do %>
-              Submit
-            <% end %>
-            <%= will_paginate @sections, :page_links => false, class: "btn btn-default", id: 'next-btn'  %>
-          </div>
+            <%= render partial: "form" %>
+          </div>  
         </div>
       </div>
     </div>
   </section>
-  <div class="status-bar-bottom">
-    <div class="container">
-      <div class="progress">
-        <div class="progress-bar" role="progressbar" aria-valuenow="70"
-        aria-valuemin="0" aria-valuemax="100" style="width:70%">
-          Progress
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    SELECTED_ANSWER = [];
+
+    $('#rootwizard').bootstrapWizard({
+      onTabShow: function(tab, navigation, index) {
+        var $total = navigation.find('li').length;
+        var $current = index+1;
+        var $percent = ($current/$total) * 100;
+        $('#rootwizard .progress-bar').css({width:$percent+'%'});
+      }
+    });
+
+    $('.survey_section_score').on('change', function(){
+      var answer = $("#survey_section_score_"+this.dataset.questionId+" option:selected").val();
+      SELECTED_ANSWER.push(answer);
+      if ($.inArray('99.0', SELECTED_ANSWER) != -1) {
+        console.log('unsure answer selected');
+        SELECTED_ANSWER.splice($.inArray('99.0', SELECTED_ANSWER),1);
+      }
+    });
+
+    $('.tab-btn').click(function(){
+      avg = calculateAnswer();
+      $('#survey_survey_scores_attributes_'+this.dataset.sectionId+'_section_score').val(avg);
+    });
+
+    function calculateAnswer(){
+      var test = SELECTED_ANSWER, n = SELECTED_ANSWER.length, sum = 0;
+      while(n--)
+        sum += parseFloat(SELECTED_ANSWER[n]) || 0;
+      var avg = sum/SELECTED_ANSWER.length; 
+      return avg;     
+    }
+  });
+</script>

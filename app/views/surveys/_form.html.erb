@@ -1,0 +1,53 @@
+<%= form_for @survey do |f| %>
+  <div class="section-block" id="rootwizard">
+    <div class="tab-content">
+      <%= f.fields_for :survey_scores do |survey_score| %>
+        <% section = survey_score.object.section %>
+        <div class="tab-pane" id="section-<%= section.id %>">
+          <%= survey_score.hidden_field :section_id %>
+          <%= survey_score.hidden_field :section_score, class: 'section_score' %>
+          <h3>
+            Section <%= section.in_order %>: <%= section.name %> 
+          </h3>
+          <% questions = section.questions.order(:in_order) %>
+          <% questions.each do |question|%>
+            <div class="single-question-block">
+              <h4 class="singleQuestion">
+                <%=   question.question_title %>
+              </h4>
+              <%= collection_select(:answer,
+                                     :answer_score,
+                                     question.answers,
+                                     :answer_score,
+                                     :answer_title,
+                                     { prompt: true },
+                                     { class: 'form-control survey_section_score',
+                                       id: "survey_section_score_#{question.id}",
+                                        data: { "question-id": question.id, "section_id": section.id } } ) %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <div class="submit-btn">
+      <%= f.submit 'Submit', class: 'btn btn-default' %>
+    </div>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <ul class="tab-panel">
+            <%= f.fields_for :survey_scores do |survey_score| %>
+              <% section = survey_score.object.section %>
+              <li>
+                <a href="#section-<%= section.id %>" data-toggle="tab" data-section-id="<%= section.id %>" class="tab-btn"><%= section.id %></a>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div> 
+    <div id="bar" class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+    </div>
+  </div>
+<% end %>

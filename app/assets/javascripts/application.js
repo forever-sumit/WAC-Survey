@@ -10,6 +10,12 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require jquery
+//= require bootstrap-sprockets
+//= require jquery_ujs
+//= require jquery.bootstrap.wizard
+//= require prettify
 //= require rails-ujs
+//= require jquery_nested_form
 //= require turbolinks
 //= require_tree .
