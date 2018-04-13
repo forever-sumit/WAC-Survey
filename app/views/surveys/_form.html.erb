@@ -13,7 +13,8 @@
           <% questions.each do |question|%>
             <div class="single-question-block">
               <h4 class="singleQuestion">
-                <%=   question.question_title %>
+                <%= trim(question.serial_number) %>
+                <%= question.question_title %>
               </h4>
               <%= collection_select(:answer,
                                      :answer_score,
@@ -28,6 +29,7 @@
           <% end %>
         </div>
       <% end %>
+      
     </div>
     <div class="submit-btn">
       <%= f.submit 'Submit', class: 'btn btn-default' %>
