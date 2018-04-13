@@ -8,11 +8,9 @@
     <div class="container">
       <div class="row">
         <div class="col-md-4">
-          <a href="index.html">
-            <div class="logo">
-              <%= image_tag('logo.png') %>
-            </div>
-          </a>
+          <div class="logo">
+            <%= image_tag('logo.png') %>
+          </div>
         </div>
         <div class="col-md-8">
           <div class="start-here-content">
@@ -59,7 +57,7 @@
 
     $('.tab-btn').click(function(){
       avg = calculateAnswer();
-      $('#survey_survey_scores_attributes_'+this.dataset.sectionId+'_section_score').val(avg);
+      $('#survey_survey_scores_attributes_'+(this.dataset.sectionId-1)+'_section_score').val(avg);
     });
 
     function calculateAnswer(){
@@ -69,5 +67,32 @@
       var avg = sum/SELECTED_ANSWER.length; 
       return avg;     
     }
+
+    var $curr = $( "li.active" );
+    $('#prevoius').hide();
+
+    $('#prevoius').on('click', function(){
+      $curr = $curr.prev();
+      if ($curr.children()[0] != undefined){
+        $curr.children().trigger('click');
+        if ($curr.prev().children()[0] == undefined){
+          $('#prevoius').hide(); 
+        }
+        $('.survey_submit').hide();
+        $('#next').show();
+      }
+    });
+
+    $('#next').on('click', function(){
+      $curr = $curr.next();
+      if ($curr.children()[0] != undefined){
+        $curr.children().trigger('click');
+        if ($curr.next().children()[0] == undefined){
+          $('#next').hide();
+          $('.survey_submit').show();
+        }
+        $('#prevoius').show();
+      }
+    });
   });
 </script>

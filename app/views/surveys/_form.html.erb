@@ -32,9 +32,14 @@
       
     </div>
     <div class="submit-btn">
-      <%= f.submit 'Submit', class: 'btn btn-default' %>
+      <%= f.submit 'Submit', class: 'btn btn-default survey_submit disable' %>
+      <div class="pull-right">
+        <%= link_to 'Prevoius', "javascript:;", class: 'btn btn-default', id: 'prevoius' %>
+        <%= link_to 'Next', "javascript:;", class: 'btn btn-default', id: 'next' %>
+      </div>
     </div>
-    <div class="navbar">
+    <br><br>
+    <div class="navbar hide">
       <div class="navbar-inner">
         <div class="container">
           <ul class="tab-panel">
