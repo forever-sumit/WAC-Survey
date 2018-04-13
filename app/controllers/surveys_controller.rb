@@ -18,7 +18,8 @@ class SurveysController < ApplicationController
   end
 
   def show
-    @survey = Survey.find(params[:id])
+    survey = Survey.find(params[:id])
+    @survey_scores = SurveyScore.where(survey_id: survey.id)
   end
 
 private

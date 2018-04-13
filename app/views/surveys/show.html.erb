@@ -1,1 +1,57 @@
-Show Page
+<header class="main-header inner-header">
+  <div class="container">
+    <%= image_tag 'inner-header.jpg' %>
+  </div>
+</header>
+<div class="main-content">
+  <section class="survey-summary">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <a href="index.html">
+            <div class="logo">
+              <%= image_tag 'logo.png' %>
+            </div>
+          </a>
+        </div>
+        <div class="col-md-8">
+          <div class="start-here-content">
+            <h1>Data Bias Assessment Tool ~Survey Edition</h1>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="summary-chart">
+            <h2>Summary of the results of assessment of potential bias in your dataset</h2>
+            <% @survey_scores.each do |survey_score| %>
+              <% section = Section.find_by(id: survey_score.section_id) %>
+              <div class="summary-single-block">
+                <div class="summary-question">
+                  <%= section.name %> 
+                </div>
+                <div class="summary-color">
+                  <ul>
+                    <% if survey_score.section_score <= 1.99 %>
+                      <li class="is-green"></li> <%# green signal %>
+                      <li></li>
+                      <li></li> 
+                    <% elsif survey_score.section_score.between?(2, 2.99) %> 
+                      <li></li> <%# yellow signal%>
+                      <li class="is-yellow"></li>
+                      <li></li>
+                    <% elsif survey_score.section_score >= 2.999 %>
+                      <li></li> <%# red signal%>
+                      <li></li>
+                      <li class="is-red"></li>
+                    <% end %>
+                  </ul>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
