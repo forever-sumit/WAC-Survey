@@ -35,8 +35,8 @@
                       <% if section_score <= 1.99  %>
                         <li class="is-green"></li> <%# green signal %>
                         <li></li>
-                        <li></li> 
-                      <% elsif section_score.between?(2, 2.99)  %> 
+                        <li></li>                         
+                      <% elsif (2..2.99).include?(section_score) %>
                         <li></li> <%# yellow signal%>
                         <li class="is-yellow"></li>
                         <li></li>

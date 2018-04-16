@@ -153,6 +153,9 @@ body {
 .tab-panel{
   float: right;
 }
+.progress {
+    margin-top: 60px;
+}
 @media screen and (max-width: 500px) {
   .summary-question {
     width:  100%;
