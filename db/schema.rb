@@ -12,39 +12,42 @@
 
 ActiveRecord::Schema.define(version: 20180413141921) do
 
-  create_table "answers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "answers", force: :cascade do |t|
     t.integer "question_id"
     t.string "answer_title"
-    t.float "answer_score", limit: 24
+    t.float "answer_score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "questions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "questions", force: :cascade do |t|
     t.integer "in_order"
     t.string "question_title"
     t.integer "section_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.float "serial_number", limit: 24
+    t.float "serial_number"
   end
 
-  create_table "sections", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "sections", force: :cascade do |t|
     t.string "name"
     t.integer "in_order"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "survey_scores", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "survey_scores", force: :cascade do |t|
     t.integer "section_id"
     t.integer "survey_id"
-    t.float "section_score", limit: 24
+    t.float "section_score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "surveys", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "surveys", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
