@@ -1,5 +1,6 @@
 $(document).ready(function() {
   SELECTED_ANSWER = [];
+  UNSURE_ANSWERS = [];
 
   $('#rootwizard').bootstrapWizard({
     onTabShow: function(tab, navigation, index) {
@@ -15,12 +16,14 @@ $(document).ready(function() {
     SELECTED_ANSWER.push(answer);
     if ($.inArray('99.0', SELECTED_ANSWER) != -1) {
       console.log('unsure answer selected');
+      UNSURE_ANSWERS.push(answer);
       SELECTED_ANSWER.splice($.inArray('99.0', SELECTED_ANSWER),1);
     }
   });
 
   $('.tab-btn').click(function(){
     avg = calculateAnswer();
+    avg = avg || 0
     $('#survey_survey_scores_attributes_'+(this.dataset.sectionId-1)+'_section_score').val(avg.toFixed(2));
     SELECTED_ANSWER = [];
   });
@@ -64,5 +67,10 @@ $(document).ready(function() {
 
   $('.survey_submit').on('click', function(){
     $(this).closest('.submit-btn').siblings('.navbar').find('.tab-btn').last().trigger('click');
+    if (UNSURE_ANSWERS.length > 20){
+      alert("There are a large numbers of questions marked 'Unsure'");
+      return false;
+      location.reload(true);
+    }
   });
 });
