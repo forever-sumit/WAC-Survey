@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  SELECTED_ANSWER = [];
+  SELECTED_ANSWERS = [];
   UNSURE_ANSWERS = [];
 
   $('#rootwizard').bootstrapWizard({
@@ -12,29 +12,14 @@ $(document).ready(function() {
   });
 
   $('.survey_section_score').on('change', function(){
-    var answer = $("#survey_section_score_"+this.dataset.questionId+" option:selected").val();
-    SELECTED_ANSWER.push(answer);
-    if ($.inArray('99.0', SELECTED_ANSWER) != -1) {
+    var answer = $(this).val();
+    if (answer != '99.0'){
+      SELECTED_ANSWERS.push(answer);
+    } else{
       console.log('unsure answer selected');
       UNSURE_ANSWERS.push(answer);
-      SELECTED_ANSWER.splice($.inArray('99.0', SELECTED_ANSWER),1);
     }
   });
-
-  $('.tab-btn').click(function(){
-    avg = calculateAnswer();
-    avg = avg || 0
-    $('#survey_survey_scores_attributes_'+(this.dataset.sectionId-1)+'_section_score').val(avg.toFixed(2));
-    SELECTED_ANSWER = [];
-  });
-
-  function calculateAnswer(){
-    var test = SELECTED_ANSWER, n = SELECTED_ANSWER.length, sum = 0;
-    while(n--)
-      sum += parseFloat(SELECTED_ANSWER[n]) || 0;
-    var avg = sum/SELECTED_ANSWER.length; 
-    return avg;     
-  }
 
   var $curr = $( "li.active" );
   $('#previous').hide();
@@ -54,6 +39,8 @@ $(document).ready(function() {
   });
 
   $('#next').on('click', function(){
+    calculateAverage($curr.children()[0]);
+
     $curr = $curr.next();
     if ($curr.children()[0] != undefined){
       $curr.children().trigger('click');
@@ -65,8 +52,21 @@ $(document).ready(function() {
     }
   });
 
+  function calculateAverage(dom){
+    var test = SELECTED_ANSWERS, n = SELECTED_ANSWERS.length, sum = 0;
+    while(n--)
+      sum += parseFloat(SELECTED_ANSWERS[n]) || 0;
+
+    var avg = sum/SELECTED_ANSWERS.length; 
+    avg = avg || 0
+    var fixedAverage = avg.toFixed(2);
+    $('#section_score-'+(dom.dataset.sectionId)).val(fixedAverage);
+    SELECTED_ANSWERS = [];
+    return fixedAverage;
+  }
+
   $('.survey_submit').on('click', function(){
-    $(this).closest('.submit-btn').siblings('.navbar').find('.tab-btn').last().trigger('click');
+    $('#next').trigger('click');
     if (UNSURE_ANSWERS.length > 20){
       alert("There are a large numbers of questions marked 'Unsure'");
       return false;

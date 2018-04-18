@@ -1,0 +1,26 @@
+<%= f.fields_for :survey_scores do |survey_score| %>
+  <% section = survey_score.object.section %>
+  <div class="tab-pane" id="section-<%= section.id %>">
+    <%= survey_score.hidden_field :section_id %>
+    <%= survey_score.hidden_field :section_score, id: "section_score-#{section.id}" %>
+    <h3>
+      Section <%= section.in_order %>: <%= section.name %> 
+    </h3>
+    <% questions = section.questions.order(:in_order) %>
+    <% questions.each do |question|%>
+      <div class="single-question-block">
+        <h4 class="singleQuestion">
+          <%= trim(question.serial_number) %>
+          <%= question.question_title %>
+        </h4>
+        <%= collection_select(:answer,
+                               :answer_score,
+                               question.answers,
+                               :answer_score,
+                               :answer_title,
+                               { prompt: true },
+                               { class: 'form-control survey_section_score' } ) %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

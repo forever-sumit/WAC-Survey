@@ -1,0 +1,8 @@
+<ul class="tab-panel">
+  <%= f.fields_for :survey_scores do |survey_score| %>
+    <% section = survey_score.object.section %>
+    <li>
+      <a href="#section-<%= section.id %>" data-toggle="tab" data-section-id="<%= section.id %>" class="tab-btn"><%= section.id %></a>
+    </li>
+  <% end %>
+</ul>
