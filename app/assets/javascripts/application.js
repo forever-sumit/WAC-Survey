@@ -17,5 +17,4 @@
 //= require prettify
 //= require rails-ujs
 //= require jquery_nested_form
-//= require turbolinks
 //= require_tree .
