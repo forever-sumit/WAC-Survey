@@ -17,4 +17,28 @@
 @import "bootstrap";
 @import "font-awesome";
 @import "style";
-@import "prettify";
+@import "landing";
+@import "survey";
+@import "footer";
+@import "colors";
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+}
+body {
+  background: $background;
+  font-family: 'Barlow', sans-serif !important;
+  box-sizing: border-box;
+  padding: 1rem;
+  width: 100%;
+  line-height: 3rem;
+  p {
+    text-align: justify;
+  }
+}

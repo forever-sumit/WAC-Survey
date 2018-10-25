@@ -1,0 +1,181 @@
+// Place all the styles related to the surveys controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "colors";
+@import "animations";
+
+.survey {
+  &__meta-data {
+    &--progress {
+      color: $light-purple;
+    }
+    &--title {
+      color: $dark-purple;
+      font-weight: 500;
+      font-size: 1.8rem;
+    }
+    &--subtitle {
+
+    }
+  }
+  &__answers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 16rem);
+    grid-template-rows: 1fr;
+    grid-column-gap: 3rem;
+    label {
+      text-align: center;
+    }
+    @media(max-width: 46rem) {
+      grid-template-columns: unset;
+    }
+  }
+  &__button-container {
+    padding: 2rem;
+    width: 40rem;
+    display: flex;
+    margin: 0 auto;
+    @media(max-width: 46rem) {
+      width: 100%;
+      padding: 0;
+    }
+  }
+  &__button {
+    width: 15rem;
+    background: $light-purple;
+    color: white !important;
+    font-weight: 500;
+    padding: 1rem 2rem;
+    border-radius: .25rem;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none !important;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    &:visited, &:active {
+      color: white !important;
+      text-decoration: none;
+    }
+    &:hover {
+      text-decoration: none;
+      transform: translateY(-.1rem);
+      box-shadow: .2rem .2rem .5rem rgba(black,0.2);
+      color: white;
+    }
+    &--submit {
+      background-color: $dark-purple;
+      font-weight: 700;
+      border: 0;
+    }
+    @media(max-width: 46rem) {
+      width: 45%;
+    }
+  }
+
+  .disabled {
+    filter: opacity(0.7);
+    cursor: default;
+    &:hover {
+      transform: none;
+      box-shadow: none;
+    }
+  }
+  &__navigation {
+    display: flex;
+    width: 40rem;
+    margin: 0 auto;
+    margin-top: 2rem;
+    &--bar {
+      width: 4rem;
+      height: .3rem;
+      background-color: $grey;
+      &:not(:last-child) {
+        margin-right: 2rem;
+      }
+      &-visited {
+        background-color: $light-purple;
+      }
+      &-active {
+        background-color: $dark-purple !important;
+      }
+    }
+    @media(max-width: 46rem) {
+      width: 100%;
+      &--bar {
+        width: calc(90% / 7);
+        &:not(:last-child) {
+          margin-right: 1rem;
+        }
+      }
+    }
+  }
+}
+
+// Using current CSS classes so as to not interfere with the javascript
+// (all the logic is written in javascript for some reason)
+
+.single-question-block {
+  input[type="radio"] {
+    display: none;
+  }
+  input[type="radio"]:checked + label {
+    &:after {
+      background-color: $light-purple !important;
+    }
+  }
+  label {
+    position: relative;
+    margin-top: 6rem;
+    font-weight: 400;
+    cursor: pointer;
+    &:hover:after {
+      background-color: $light-purple;
+    }
+    &:after {
+      cursor: pointer;
+      content: '';
+      position: absolute;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 100%;
+      border: .2rem solid $light-purple;
+      top: -3rem;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    @media(max-width: 46rem) {
+      margin-top: 1rem;
+      padding-left: 3rem;
+      width: calc(100% - 3rem);
+      text-align: left;
+      &:after {
+        top: .5rem;
+        left: 1rem;
+      }
+    }
+  }
+}
+label.full-text {
+  text-align: left;
+}
+
+.singleQuestion {
+  position: relative;
+  &:before {
+    position: absolute;
+    content: attr(data-number);
+    color: black;
+    top: 0;
+    left: -4rem;
+  }
+  @media(max-width: 46rem) {
+    &:before {
+      display: none;
+    }
+  }
+}
+
+.active {
+  animation: slide-in .8s ease-in-out;
+}

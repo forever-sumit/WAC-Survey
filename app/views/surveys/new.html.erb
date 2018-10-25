@@ -1,33 +1,14 @@
-<header class="main-header inner-header">
-  <div class="container">
-    <%= image_tag('inner-header.jpg') %>
-  </div>
-</header>
-<div class="main-content">
-  <section class="survey-questions">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4">
-          <div class="logo">
-            <%= image_tag('logo.png') %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+      <div class="survey">
+        <div class="survey__meta-data">
+          <div class="survey__meta-data--progress"> 
+            Section <span id='progress-index'>1</span>/8
           </div>
+        <%= render partial: "form" %>
         </div>
-        <div class="col-md-8">
-          <div class="start-here-content">
-            <h1>Data Bias Assessment Tool ~Survey Edition</h1>
-            <p>Answer the following questions about your dataset.</p>
-            <p>We’ll show you your results once you’re complete</p>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="questions-block">
-            <h2>Who - Questions about who the data was collected by and from</h2>
-            <%= render partial: "form" %>
-          </div>  
-        </div>
-      </div>
+      </div>  
     </div>
-  </section>
+  </div>
 </div>

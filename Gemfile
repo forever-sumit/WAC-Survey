@@ -35,8 +35,6 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'bootstrap-sass', '~> 3.3.7'
-gem "nested_form"
-gem 'twitter_bootstrap_wizard_rails'
 gem "jquery-rails"
 
 group :development, :test do

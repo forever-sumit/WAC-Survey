@@ -1,25 +1,19 @@
 <%= form_for @survey do |f| %>
-  <div class="section-block" id="rootwizard">
+  <div class="section-block">
     <div class="tab-content">
       <%= render partial: "survey_scores", locals: {f: f} %>
     </div>
     <div class="submit-btn">
-      <%= f.submit 'Submit', class: 'btn btn-default survey_submit disable' %>
-      <div class="pull-right">
-        <%= link_to 'Previous', "javascript:;", class: 'btn btn-default', id: 'previous' %>
-        <%= link_to 'Next', "javascript:;", class: 'btn btn-default', id: 'next' %>
+      <div class='survey__button-container'>
+        <%= link_to 'Previous', "javascript:;", class: 'survey__button', id: 'previous' %>
+        <%= link_to 'Next', "javascript:;", class: 'survey__button', id: 'next' %>
+        <%= f.submit 'Submit', class: 'survey__button survey__button--submit', id: 'submit' %>
       </div>
     </div>
-    <br><br>
-    <div class="navbar hide">
-      <div class="navbar-inner">
-        <div class="container">
-          <%= render partial: "survey_section_tabs", locals: {f: f} %>
-        </div>
-      </div>
-    </div> 
-    <div id="bar" class="progress">
-      <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+    <div class='survey__navigation'>
+      <% 8.times do |i| %>
+        <div class='survey__navigation--bar' data-nav-index=<%=i%>></div>
+      <% end %>
     </div>
   </div>
 <% end %>

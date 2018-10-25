@@ -1,0 +1,47 @@
+@import 'colors';
+.footer {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  color: white;
+  width: 100%;
+  background: $dark-purple;
+  &__title {
+    font-size: 2rem;
+    font-weight: 500;
+  }
+  &__icons {
+    list-style: none;
+    display: none;
+    .social-icon {
+      color: $dark-purple;
+      display: block;
+      width: 2rem;
+      margin-right: 2rem;
+      height: 2rem;
+      background-color: white;
+      border-radius: .25rem;
+    }
+  }
+  &__logo {
+    display: none;
+  }
+  @media(max-width: 46rem) {
+    &__title {
+      font-size: 1.8rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    &__text {
+      margin-bottom: 2rem;
+    }
+    &__icons {
+      display: none;
+    }
+    &__logo {
+      display: block;
+      margin: 0 auto;
+      width: 8rem;
+      margin-bottom: 2rem;
+    }
+  }
+}
