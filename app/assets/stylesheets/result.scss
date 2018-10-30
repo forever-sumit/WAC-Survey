@@ -1,0 +1,103 @@
+@import 'colors';
+
+.result__title {
+  font-size: 1.8rem;
+}
+
+.result-block {
+  display: grid;
+  grid-template-columns: 1fr 15rem;
+  grid-column-gap: 2rem;
+  @media(max-width: 46rem) {
+    grid-template-columns: unset;
+    grid-template-rows: repeat(2, min-content);
+    &__title {
+      &:before {
+        content: "" !important;
+      }
+    }
+    .result-block__result {
+      ul {
+        margin: 2rem 0rem  2rem 0.1rem !important;
+      }
+    }
+  }
+  &__title {
+    position: relative;
+    color: $dark-purple;
+    font-size: 1.6rem;
+    &:before {
+      font-size: 1.4rem;
+      position: absolute;
+      content: attr(data-section-id);
+      top: 0;
+      left: -2rem;
+    }
+  }
+  .result-block__result {
+    width: 100%;
+    ul {
+      display: flex;
+      margin: 0;
+      margin-top: .5rem;
+      margin-bottom: 2rem;
+      justify-content: space-between;
+      width: 15rem;
+      li {
+        position: relative;
+        border-radius: 100%;
+        border: .2rem solid $light-purple;
+        width: 2rem;
+        height: 2rem;
+        list-style: none;
+        display: block;
+        &:after {
+          position: absolute;
+          content: "";
+          top: 2rem;
+          left: 0;
+          transform: translateX(-20%);
+        }
+        &.is-red { background-color: $red; border: .2rem solid $dark-purple; }
+        &.is-yellow { background-color: $yellow; border: .2rem solid $dark-purple;}
+        &.is-green { background-color: $green; border: .2rem solid $dark-purple;}
+        &:nth-child(5):after {
+          content: "Pass";
+        }
+        &:nth-child(5):after {
+          content: "Ok";
+          transform: translateX(-8%);
+        }
+        &:nth-child(5):after {
+          content: "Fail";
+        }
+      }
+    }
+  }
+}
+.results-download {
+  display: grid;
+  grid-template-columns: 1fr 15rem;
+  grid-column-gap: 2rem;
+  &__button {
+    margin: 4rem 0;
+    width: 15rem;
+    background: $light-purple;
+    color: white !important;
+    font-weight: 500;
+    padding: 1rem 2rem;
+    border-radius: .25rem;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    top: -2rem;
+    text-decoration: none !important;
+    text-align: center;
+    display: block;
+    &:hover {
+      text-decoration: none;
+      transform: translateY(-.1rem);
+      box-shadow: .2rem .2rem .5rem rgba(black,0.2);
+      color: white;
+    }
+  }
+}

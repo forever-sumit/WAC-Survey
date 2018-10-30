@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
+      <h3 class='result__title'>Summary of the results of assessment of potential bias in your dataset</h3>
+      <br>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3'>
+      <% @survey_scores.each do |survey_score| %>
+        <%=render 'result', survey_score: survey_score %>
+      <% end %> 
+      <div class='results-download'>
+        <%=link_to "Download", download_path(id: @survey.id), class: 'results-download__button', method: 'post'%>
+        <h3 class='result__title'></h3>
+      </div>
+    </div>
+  </div>
+</div>

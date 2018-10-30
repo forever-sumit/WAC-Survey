@@ -19,6 +19,7 @@
 @import "style";
 @import "landing";
 @import "survey";
+@import 'result';
 @import "footer";
 @import "colors";
 
@@ -40,5 +41,15 @@ body {
   line-height: 3rem;
   p {
     text-align: justify;
+  }
+  a {
+    color: $yellow;
+    &:hover {
+      text-decoration: none;
+      color: $light-purple;
+    }
+  }
+  .margin-bottom {
+    margin-bottom: 2rem;
   }
 }

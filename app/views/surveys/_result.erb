@@ -1,0 +1,30 @@
+<% section = Section.find_by(id: survey_score.section_id) %>
+<div class="result-block">
+  <div class="result-block__title" data-section-id=<%="#{section.id}."%>>
+    <%= section.name %> 
+  </div>
+  <div class="result-block__result">
+    <ul>
+      <% section_score = survey_score.section_score%>
+      <% if section_score.present? %>
+        <% if section_score <= 1.99  %>
+          <li class="is-green"></li> <%# green signal %>
+          <li></li>
+          <li></li>                         
+        <% elsif (2..2.99).include?(section_score) %>
+          <li></li> <%# yellow signal%>
+          <li class="is-yellow"></li>
+          <li></li>
+        <% elsif section_score >= 2.999 %>
+          <li></li> <%# red signal%>
+          <li></li>
+          <li class="is-red"></li>
+        <% end %>
+      <% else %>
+        <li></li> <%# red signal%>
+        <li></li>
+        <li class="is-red"></li>
+      <% end %>
+    </ul>
+  </div>
+</div>

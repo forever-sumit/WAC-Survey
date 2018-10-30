@@ -18,8 +18,37 @@ class SurveysController < ApplicationController
   end
 
   def show
-    survey = Survey.find(params[:id])
-    @survey_scores = SurveyScore.where(survey_id: survey.id)
+    @survey = Survey.find_by(id: params[:id])
+    if @survey
+      @survey_scores = SurveyScore.where(survey_id: @survey.id)
+    else
+      redirect_to root_path
+    end
+  end
+
+  def download
+    require 'csv'
+    @survey = Survey.find_by(id: params[:id])
+    if @survey
+      csv = []
+      csv << ["Section", "Score"]
+      @survey_scores = SurveyScore.where(survey_id: @survey.id).map do |score|
+        if score.section_score.to_f < 1.9
+          csv_score = "Good"
+        elsif (2..2.99).include?(score.section_score.to_f)
+          csv_score = "Ok"
+        else
+          csv_score = "Fail"
+        end
+        csv << ["#{score.section.id}. #{score.section.name}", csv_score]
+      end
+      file = CSV.generate do |csv_file|
+        csv.each do |f|
+          csv_file << f
+        end
+      end
+      send_data file, filename: "wac-survey-results.csv", disposition: 'attachment'
+    end
   end
 
 private
