@@ -38,7 +38,7 @@ class SurveysController < ApplicationController
       csv << ["Results"]
       csv << ["Section", "Score"]
       @survey_scores = SurveyScore.where(survey_id: @survey.id).map do |score|
-        if score.section_score.to_f < 1.9
+        if (0.01..1.99).include?(score.section_score.to_f)
           csv_score = "Green"
         elsif (2..2.99).include?(score.section_score.to_f)
           csv_score = "Yellow"
