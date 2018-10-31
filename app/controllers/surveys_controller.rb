@@ -10,6 +10,10 @@ class SurveysController < ApplicationController
 
   def create
     survey = Survey.new(survey_params)
+    questions_and_answer_ids = JSON.parse(params.select{|x| x.starts_with?"question"}.to_json)
+    questions_and_answer_ids.each do |k,v|
+      survey.qanda[k.split("-").last] = v.split("-").first # using the id of each input, we get the question and answer id
+    end
     if survey.save
       redirect_to survey_path(survey.id)
     else
@@ -31,16 +35,26 @@ class SurveysController < ApplicationController
     @survey = Survey.find_by(id: params[:id])
     if @survey
       csv = []
+      csv << ["Results"]
       csv << ["Section", "Score"]
       @survey_scores = SurveyScore.where(survey_id: @survey.id).map do |score|
         if score.section_score.to_f < 1.9
-          csv_score = "Good"
+          csv_score = "Green"
         elsif (2..2.99).include?(score.section_score.to_f)
-          csv_score = "Ok"
+          csv_score = "Yellow"
         else
-          csv_score = "Fail"
+          csv_score = "Red"
         end
         csv << ["#{score.section.id}. #{score.section.name}", csv_score]
+      end
+      csv << ['']
+      csv << ["All Questions & Responses"]
+      csv << ["Question", "Response"]
+      @survey.qanda.each do |k,v|
+        q = Question.find(k)
+        a = Answer.find_by(id: v)
+        answer_text = a ? a.answer_title : "Unanswered"
+        csv << ["#{q.id}. #{q.question_title}",answer_text]
       end
       file = CSV.generate do |csv_file|
         csv.each do |f|
@@ -53,6 +67,6 @@ class SurveysController < ApplicationController
 
 private
   def survey_params
-    params.require(:survey).permit(survey_scores_attributes: [:id, :survey_id, :section_id, :section_score])
+    params.require(:survey).permit(:qanda, survey_scores_attributes: [:id, :survey_id, :section_id, :section_score])
   end
 end
